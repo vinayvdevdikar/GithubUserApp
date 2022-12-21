@@ -18,7 +18,6 @@ extension ListScene {
                 self.isLoading = false
                 return
             }
-            print(url.absoluteString)
             let request = URLRequest(url: url)
             let session = URLSession.shared
             let task = session.dataTask(with: request, completionHandler: { data, response, error in
@@ -26,6 +25,7 @@ extension ListScene {
                 if let jsonData = data {
                     do {
                         let decoder = JSONDecoder()
+                    
                         decoder.dateDecodingStrategy = .iso8601
                         let list = try decoder.decode(RepoList.self, from: jsonData)
                         self.updateDataType(with: list)
